@@ -9,6 +9,20 @@ class GUI:
         self.count = 0
         self.icon = PhotoImage(file="bitcoin.png")
         self.x = IntVar()
+        self.food = ['pizza', 'burger', 'fries', 'steak']
+        self.y = IntVar()
+        pizza_image=PhotoImage(file='pizza.png')
+        pizza_image = pizza_image.subsample(40,40)
+        burger_image=PhotoImage(file='burger.png')
+        burger_image = burger_image.subsample(40,40)
+        fries_image=PhotoImage(file='fries.png')
+        fries_image = fries_image.subsample(85,48)
+        steak_image=PhotoImage(file='steak.png')
+        steak_image=steak_image.subsample(40,30)
+        
+        
+        self.food_image = [pizza_image, burger_image, fries_image, steak_image]
+
 
 
     def click(self):
@@ -30,6 +44,16 @@ class GUI:
             print('I am glad that You are doing great! :)')
         else:
             print('I am sorry that you are not doing great:<')
+
+    def display2(self):
+        if self.y.get() == 0:
+            print('You ordered the pizza :)')
+        elif self.y.get() == 1:
+            print('You ordered the burger :)')
+        elif self.y.get() == 2:
+            print('You ordered the fries :)')
+        elif self.y.get() == 3:
+            print('You ordered the steak :)')   
     
     def main(self):
         self.root.title("interactive_gui")
@@ -93,9 +117,24 @@ class GUI:
                     activebackground='black',
                     activeforeground='green',
                     padx=15, pady=12,
-                    
-
         )
+        for i in range(len(self.food)):
+            radio_button = Radiobutton(
+                    self.root,
+                    text=self.food[i],
+                    fg='green', bg='black',
+                    font=("Times New Roman", 20,),
+                    variable= self.y,
+                    value=i,
+                    command=self.display2,
+                    padx=10,
+                    width=300,
+                    indicatoron=0,
+                    image=self.food_image[i],
+                    compound='left',
+            )
+            radio_button.pack(anchor=W, side=BOTTOM)
+        
 
         self.label.pack()
         self.click_button.place(x=100, y=100)
