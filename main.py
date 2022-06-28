@@ -8,7 +8,9 @@ class GUI:
         self.root = Tk()
         self.count = 0
         self.icon = PhotoImage(file="bitcoin.png")
-              
+        self.x = IntVar()
+
+
     def click(self):
         self.count += 1
         print(self.count)
@@ -22,6 +24,12 @@ class GUI:
         
     def backspace(self):
         self.entry.delete(len(self.entry.get())-1, END)
+
+    def display(self):
+        if self.x.get() == 1:
+            print('I am glad that You are doing great! :)')
+        else:
+            print('I am sorry that you are not doing great:<')
     
     def main(self):
         self.root.title("interactive_gui")
@@ -37,7 +45,8 @@ class GUI:
                     bg='black', fg='green',
                     border=10, relief='sunken',
                     image= textimage,
-                    compound='bottom')
+                    compound='bottom',
+                    padx = 15, pady = 15)
         self.click_button = Button(
                     self.root, 
                     text="click if \n you're \n bored af",
@@ -72,6 +81,21 @@ class GUI:
                     border=5, relief='sunken',
                     width=30,            
         )
+        self.check_box = Checkbutton(
+                    self.root,
+                    text="Check me if you are doing great",
+                    variable= self.x,
+                    onvalue=1,
+                    offvalue=0,
+                    command=self.display,
+                    font=("Arial", 20,),
+                    bg='black', fg='green',
+                    activebackground='black',
+                    activeforeground='green',
+                    padx=15, pady=12,
+                    
+
+        )
 
         self.label.pack()
         self.click_button.place(x=100, y=100)
@@ -80,7 +104,7 @@ class GUI:
         self.backspace_button.pack(side=RIGHT)
         #self.entry.config(show='$')
         self.entry.pack(side=RIGHT)
-        
+        self.check_box.place(x=50, y=350)
         self.root.mainloop()
 
 
